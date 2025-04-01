@@ -1,128 +1,124 @@
-variable "Project_Name" {
-    type=string
-  
+#### Project ####
+variable "project_name"{
+    type = string
 }
-variable "Environement" {
-    default ="dev"
+
+variable "environment"{
+    type = string
+    default = "dev"
 }
-variable "vpc_tags" {
-    default={}  
+
+variable "common_tags"{
+    type = map
 }
-variable "Common_tags" {
-    default = {}
-}
-###VPC
-variable "enable_dns_support" {
-    default = true
-  
-}
-variable "cidr_block" {
+
+#### VPC ####
+variable "vpc_cidr" {
+    type = string
     default = "10.0.0.0/16"
-  
 }
-####Public Subnet##
 
+variable "enable_dns_hostnames" {
+    type = bool
+    default = true
+}
+
+variable "vpc_tags" {
+    type = map
+    default = {}
+}
+
+#### IGW ####
+variable "igw_tags"{
+    type = map
+    default = {}
+}
+
+### Public Subnet ####
 variable "public_subnet_cidrs" {
-      
-      validation {
-        condition=length(var.public_subnet_cidrs)==2
-        error_message = "Please Provide Minimum 2 Subnet Ids"
-      }
-  
-}
-variable "public_subnet_cidrs_tags" {
-    default =[]
-  
-}
-variable "public_subnet_tags" {
-    default ={}
-  
+    type = list
+    validation {
+        condition = length(var.public_subnet_cidrs) == 2
+        error_message = "Please provide 2 valid public subnet CIDR"
+    }
 }
 
-###########Private Subnet##################
+variable "public_subnet_cidr_tags" {
+    type = map
+    default = {}
+}
 
+
+### Private Subnet ####
 variable "private_subnet_cidrs" {
-  
-  validation {
-     condition = length(var.private_subnet_cidrs)==2
-     error_message = "Please Provide Minimum two Cidrs"
-
-  }
+    type = list
+    validation {
+        condition = length(var.private_subnet_cidrs) == 2
+        error_message = "Please provide 2 valid private subnet CIDR"
+    }
 }
 
-variable "private_subnet_cidrs_tags" {
-    default =[]
-}
-
-variable "private_tags" {
+variable "private_subnet_cidr_tags" {
+    type = map
     default = {}
-  
 }
 
 
-
-
-
-
-##############Data Base Subnet#########
-
+### Database Subnet ####
 variable "database_subnet_cidrs" {
-   validation {
-   condition =length(var.database_subnet_cidrs)==2
-   error_message = "Please Provide Minumum 2 cidrs"  
-   }  
-}
-variable "database_subnet_cidrs_tags" {
-    default = []
-  
+    type = list
+    validation {
+        condition = length(var.database_subnet_cidrs) == 2
+        error_message = "Please provide 2 valid database subnet CIDR"
+    }
 }
 
-variable "data_base_tags"{
-  default={}
-}
-
-
-###nat Gatway tags####
-
-variable "NatGateway_tags" {
+variable "database_subnet_cidr_tags" {
+    type = map
     default = {}
-  
 }
 
-#### route tables###########
-variable "pubic_route_tables_tags" {
+variable "database_subnet_group_tags" {
+    type = map
     default = {}
-  
 }
 
+#### Nat gateway ####
+variable "nat_gateway_tags" {
+    type = map
+    default = {}
+}
+
+#### Public Route table ####
+variable "public_route_table_tags" {
+    type = map
+    default = {}
+}
+
+#### Private Route table ####
 variable "private_route_table_tags" {
+    type = map
     default = {}
-  
 }
 
-variable "data_base_routetable_tags" {
+#### Database Route table ####
+variable "database_route_table_tags" {
+    type = map
     default = {}
-  
 }
 
-variable "is_perring" {
-    type=bool
-  
+#### Peering ####
+variable "is_peering_required" {
+  type = bool
+  default = false
 }
+
 variable "acceptor_vpc_id" {
   type = string
   default = ""
 }
 
-variable "peer_tags" {
-    default ={}
-  
-}
-variable "vpc_cidr" {
-    type = string
-    default = "10.0.0.0/16"
-}
-variable "database_subnet_group_tags" {
-    default = {}
-  
+variable "vpc_peering_tags" {
+  type = map
+  default = {}
 }
