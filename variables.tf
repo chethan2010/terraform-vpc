@@ -1,124 +1,115 @@
-#### Project ####
-variable "project_name"{
+variable "Project_name" {
     type = string
 }
 
-variable "environment"{
-    type = string
+variable "Environment" {
     default = "dev"
 }
 
-variable "common_tags"{
+variable "common_tags" {
     type = map
+    
 }
 
-#### VPC ####
-variable "vpc_cidr" {
-    type = string
+#Vpc Variables
+variable "cidr_block" {
     default = "10.0.0.0/16"
 }
 
+
 variable "enable_dns_hostnames" {
-    type = bool
-    default = true
-}
+  type=bool  
+  default =true
 
+}
 variable "vpc_tags" {
-    type = map
     default = {}
+  
 }
 
-#### IGW ####
-variable "igw_tags"{
-    type = map
+#IGW
+variable "igw_tags" {
     default = {}
+  
 }
 
-### Public Subnet ####
+#Subnets
+
 variable "public_subnet_cidrs" {
-    type = list
-    validation {
-        condition = length(var.public_subnet_cidrs) == 2
-        error_message = "Please provide 2 valid public subnet CIDR"
-    }
+type = list
+validation{
+    condition = length(var.public_subnet_cidrs) ==2
+    error_message = "Please enter two Public_subnet_cidrs"
+}
 }
 
-variable "public_subnet_cidr_tags" {
-    type = map
-    default = {}
-}
-
-
-### Private Subnet ####
 variable "private_subnet_cidrs" {
     type = list
+validation {
+  condition = length(var.private_subnet_cidrs) ==2
+  error_message = "Please enter two private subet cidrs"
+}
+  
+}
+
+variable "database_subnet_cidrs" {
     validation {
-        condition = length(var.private_subnet_cidrs) == 2
-        error_message = "Please provide 2 valid private subnet CIDR"
+      condition = length(var.database_subnet_cidrs) ==2
+      error_message = "please enter two database subnet cidrs"
     }
+  
+}
+
+
+variable "public_subnet_cidr_tags" {
+    default = {}
+  
 }
 
 variable "private_subnet_cidr_tags" {
-    type = map
     default = {}
-}
-
-
-### Database Subnet ####
-variable "database_subnet_cidrs" {
-    type = list
-    validation {
-        condition = length(var.database_subnet_cidrs) == 2
-        error_message = "Please provide 2 valid database subnet CIDR"
-    }
+  
 }
 
 variable "database_subnet_cidr_tags" {
-    type = map
     default = {}
+  
 }
 
-variable "database_subnet_group_tags" {
-    type = map
-    default = {}
-}
-
-#### Nat gateway ####
-variable "nat_gateway_tags" {
-    type = map
-    default = {}
-}
-
-#### Public Route table ####
 variable "public_route_table_tags" {
-    type = map
-    default = {}
+  default = {}
 }
 
-#### Private Route table ####
-variable "private_route_table_tags" {
-    type = map
+variable "nat_gateway_tags" {
     default = {}
+  
 }
 
-#### Database Route table ####
-variable "database_route_table_tags" {
-    type = map
-    default = {}
+
+#########Perring#
+variable "vpc_cidr" {
+    default = "10.0.0.0/16"
+  
 }
 
-#### Peering ####
 variable "is_peering_required" {
-  type = bool
-  default = false
+        type = bool
+        default = false
 }
 
 variable "acceptor_vpc_id" {
-  type = string
-  default = ""
+    type = string
+    default = ""
+  
 }
 
+
 variable "vpc_peering_tags" {
-  type = map
+    default = {}
+  
+}
+
+
+variable "aws_db_subnet_group_tags" {
   default = {}
 }
