@@ -24,9 +24,8 @@ output "igws_id" {
 }
 
 output "database_subnet_group_name" {
-  value = aws_db_subnet_group.db.name
+  value = aws_db_subnet_group.default.name
 }
-
 # output "azs" {
 #     value = data.aws_availability_zones.available.names
 # }
