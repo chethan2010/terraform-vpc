@@ -3,7 +3,6 @@ output "vpc_id" {
   
 }
 
-
 output "public_subnet_cidrs" {
     value = aws_subnet.public[*].id
   
@@ -19,10 +18,6 @@ output "database_subnet_cidrs" {
 
 }
 
-output "database_subnet_group_name" {
-  value = aws_db_subnet_group.default.name
-}
-
 output "igws_id" {
     value = aws_internet_gateway.igw.id
   
@@ -31,3 +26,5 @@ output "igws_id" {
 # output "azs" {
 #     value = data.aws_availability_zones.available.names
 # }
+
+

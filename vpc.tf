@@ -214,5 +214,3 @@ resource "aws_route_table_association" "database" {
     route_table_id = aws_route_table.database.id
   
 }   
-
-
